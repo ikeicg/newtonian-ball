@@ -1,0 +1,29 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(71, 71, 124);
+    height: 100vh;
+}
+
+canvas{
+    width: 50vw;
+    max-width: 500px;
+    height: 80vh;
+    border: 2px solid gray;
+    background-color: white;
+}
+
+@media (max-width: 999px){
+
+    canvas{
+        width: 90vw;
+        height: 70vh;
+    }
+}
