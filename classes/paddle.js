@@ -9,6 +9,16 @@ export default class Paddle {
     this.height = Math.floor(this.game.width / 10);
     this.img = new Image();
     this.img.src = "../assets/paddle.png";
+    this.displacedTime = 0;
+    this.displacedDist = {
+      x: 0,
+      y: 0,
+    };
+    this.prevPos = {
+      x: this.position.x,
+      y: this.position.y,
+    };
+    this.speed = [0, 0];
   }
 
   draw() {
@@ -21,9 +31,18 @@ export default class Paddle {
     );
   }
 
-  update() {
-    // this.position.x += 3;
-    // this.position.y += 4;
+  getPaddleSpeed(dTime) {
+    this.speed = [
+      this.position.x - this.prevPos.x,
+      this.position.y - this.prevPos.y,
+    ];
+
+    this.prevPos.x = this.position.x;
+    this.prevPos.y = this.position.y;
+  }
+
+  update(dTime) {
+    this.getPaddleSpeed(dTime);
     this.draw();
   }
 }

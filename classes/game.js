@@ -6,21 +6,21 @@ export default class Game {
     this.width = canvas.gamewidth;
     this.height = canvas.gameheight;
     this.ctx = this.canvas.getContext("2d");
-    this.components = [];
+    this.components = {};
   }
 
-  addComponent(comp) {
-    this.components.push(comp);
+  addComponent(key, comp) {
+    this.components[key] = comp;
   }
 
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height);
   }
 
-  update() {
+  update(dTime) {
     this.clear();
-    this.components.forEach((x) => {
-      x.update();
+    Object.keys(this.components).forEach((x) => {
+      this.components[x].update(dTime);
     });
   }
 }

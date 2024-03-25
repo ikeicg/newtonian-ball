@@ -10,9 +10,9 @@ let gameheight = parseInt(canvasStyles.height);
 
 const game = new Game({ element, gamewidth, gameheight });
 const paddle = new Paddle(game);
-game.addComponent(paddle);
+game.addComponent("paddle", paddle);
 const ball = new Ball(game);
-game.addComponent(ball);
+game.addComponent("ball", ball);
 const inputHandler = new Input(game);
 
 let prevTime = 0;
@@ -21,7 +21,7 @@ function gameloop(timestamp) {
   let dTime = timestamp - prevTime;
   prevTime = timestamp;
 
-  game.update();
+  game.update(dTime);
   requestAnimationFrame(gameloop);
 }
 
