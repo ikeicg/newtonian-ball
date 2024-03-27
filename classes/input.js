@@ -1,12 +1,13 @@
 export default class Input {
   constructor(game) {
     game.canvas.addEventListener("mousemove", (e) => {
-      let cRect = game.canvas.getBoundingClientRect();
+      let canvasRectangle = game.canvas.getBoundingClientRect();
+      let touchX = e.clientX;
+      let touchY = e.clientY;
+      let paddle = game.components.paddle;
 
-      game.components.paddle.position.x =
-        e.clientX - cRect.left - game.components.paddle.width / 2;
-      game.components.paddle.position.y =
-        e.clientY - cRect.top - game.components.paddle.height / 2;
+      paddle.position.x = touchX - canvasRectangle.left - paddle.width / 2;
+      paddle.position.y = touchY - canvasRectangle.top - paddle.height / 2;
     });
   }
 }

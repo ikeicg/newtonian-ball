@@ -22,27 +22,25 @@ export default class Ball {
     );
   }
 
-  paddleCollision() {
-    let paddleLeft = this.game.components.paddle.position.x;
-    let paddleTop = this.game.components.paddle.position.y;
-    let paddleXMid = paddleLeft + this.game.components.paddle.width / 2;
-    let paddleYMid = paddleTop + this.game.components.paddle.height / 2;
-    let paddleSpeed = this.game.components.paddle.speed;
-
+  wallCollision() {
     let ballLeft = this.position.x;
     let ballTop = this.position.y;
-    let ballXMid = ballLeft + this.width / 2;
-    let ballYMid = ballTop + this.height / 2;
+    let ballRight = ballLeft + this.width;
+    let ballBottom = ballTop + this.width;
 
-    let distanceBtwRadii = Math.sqrt(
-      Math.pow(paddleXMid - ballXMid, 2) + Math.pow(paddleYMid - ballYMid, 2)
-    );
-    let radiiSum = (this.game.components.paddle.width + this.width) / 2;
-
-    // Detect collision
-    if (distanceBtwRadii - radiiSum < 1) {
-      this.speed[0] += paddleSpeed[0];
-      this.speed[1] += paddleSpeed[1];
+    if (ballLeft < 0) {
+      this.position.x = 1;
+      this.speed[0] = -1 * this.speed[0];
+    } else if (ballRight > this.game.width) {
+      this.position.x = this.game.width - this.width - 1;
+      this.speed[0] = -1 * this.speed[0];
+    }
+    if (ballTop < 0) {
+      this.position.y = 1;
+      this.speed[1] = -1 * this.speed[1];
+    } else if (ballBottom > this.game.height) {
+      this.position.y = this.game.height - this.height - 1;
+      this.speed[1] = -1 * this.speed[1];
     }
   }
 
@@ -60,10 +58,14 @@ export default class Ball {
   }
 
   update(dTime) {
+    this.speed[0] = Math.max(Math.min(this.speed[0], 10), -10);
+    this.speed[1] = Math.max(Math.min(this.speed[1], 10), -10);
+
     this.position.x += this.speed[0];
     this.position.y += this.speed[1];
     this.applyFriction();
-    this.paddleCollision();
+    this.wallCollision();
+
     this.draw();
   }
 }
