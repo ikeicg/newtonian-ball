@@ -5,8 +5,8 @@ export default class Paddle {
       x: 200,
       y: 300,
     }; // Initial Position
-    this.width = Math.floor(this.game.width / 10);
-    this.height = Math.floor(this.game.width / 10);
+    this.width = Math.floor(this.game.height / 10);
+    this.height = Math.floor(this.game.height / 10);
     this.img = new Image();
     this.img.src = "assets/paddle.png";
     this.prevPos = {

@@ -6,8 +6,8 @@ export default class Ball {
       y: 100,
     };
     this.speed = [0, 0];
-    this.width = Math.floor(this.game.width / 15);
-    this.height = Math.floor(this.game.width / 15);
+    this.width = Math.floor(this.game.height / 15);
+    this.height = Math.floor(this.game.height / 15);
     this.img = new Image();
     this.img.src = "assets/ball.png";
   }
