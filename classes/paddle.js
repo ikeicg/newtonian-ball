@@ -8,7 +8,7 @@ export default class Paddle {
     this.width = Math.floor(this.game.width / 10);
     this.height = Math.floor(this.game.width / 10);
     this.img = new Image();
-    this.img.src = "../assets/paddle.png";
+    this.img.src = "/assets/paddle.png";
     this.prevPos = {
       x: this.position.x,
       y: this.position.y,

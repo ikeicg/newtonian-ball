@@ -9,7 +9,7 @@ export default class Ball {
     this.width = Math.floor(this.game.width / 15);
     this.height = Math.floor(this.game.width / 15);
     this.img = new Image();
-    this.img.src = "../assets/ball.png";
+    this.img.src = "/assets/ball.png";
   }
 
   draw() {
