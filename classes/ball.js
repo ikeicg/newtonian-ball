@@ -57,9 +57,15 @@ export default class Ball {
     }
   }
 
+  resize() {
+    this.width = Math.floor(this.game.width / 15);
+    this.height = Math.floor(this.game.width / 15);
+  }
+
   update(dTime) {
-    this.speed[0] = Math.max(Math.min(this.speed[0], 10), -10);
-    this.speed[1] = Math.max(Math.min(this.speed[1], 10), -10);
+    let gameSpeed = this.game.gameSpeed;
+    this.speed[0] = Math.max(Math.min(this.speed[0], gameSpeed), -gameSpeed);
+    this.speed[1] = Math.max(Math.min(this.speed[1], gameSpeed), -gameSpeed);
 
     this.position.x += this.speed[0];
     this.position.y += this.speed[1];

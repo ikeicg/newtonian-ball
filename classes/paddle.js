@@ -4,16 +4,11 @@ export default class Paddle {
     this.position = {
       x: 200,
       y: 300,
-    };
+    }; // Initial Position
     this.width = Math.floor(this.game.width / 10);
     this.height = Math.floor(this.game.width / 10);
     this.img = new Image();
     this.img.src = "../assets/paddle.png";
-    this.displacedTime = 0;
-    this.displacedDist = {
-      x: 0,
-      y: 0,
-    };
     this.prevPos = {
       x: this.position.x,
       y: this.position.y,
@@ -32,6 +27,7 @@ export default class Paddle {
   }
 
   ballCollision() {
+    // Calc the centers of paddle and ball
     let paddle = this;
     let paddleXMid = paddle.position.x + paddle.width / 2;
     let paddleYMid = paddle.position.y + paddle.height / 2;
@@ -45,8 +41,10 @@ export default class Paddle {
     let dy = ballYMid - paddleYMid;
     let distance = Math.sqrt(dx * dx + dy * dy);
 
-    // Check if the distance is less than the sum of the radii (half widths) of the paddle and the ball
-    if (distance < paddle.width / 2 + ball.width / 2) {
+    let radiiSum = paddle.width / 2 + ball.width / 2;
+
+    // Check if the distance is less than the sum of the radii of the paddle and the ball
+    if (distance < radiiSum) {
       // Determine the angle of collision
       let angle = Math.atan2(dy, dx);
 
@@ -58,15 +56,17 @@ export default class Paddle {
         paddle.speed[0] * paddle.speed[0] + paddle.speed[1] * paddle.speed[1]
       );
 
-      // Calculate the average magnitude of velocities
-      let averageMagnitude = (totalMagnitudeBall + totalMagnitudePaddle) / 2;
+      // Calculate the resultant magnitude of velocities
+      let resultantMagnitude = Math.abs(
+        totalMagnitudeBall - totalMagnitudePaddle
+      );
 
-      // Calculate the new velocities after collision based on average magnitude
-      ball.speed[0] = averageMagnitude * Math.cos(angle);
-      ball.speed[1] = averageMagnitude * Math.sin(angle);
+      // Calculate the new velocities after collision based on resultant magnitude
+      ball.speed[0] = resultantMagnitude * Math.cos(angle);
+      ball.speed[1] = resultantMagnitude * Math.sin(angle);
 
       // Separate the ball and the paddle to prevent overlap
-      let overlap = paddle.width / 2 + ball.width / 2 - distance;
+      let overlap = radiiSum - distance;
       let separationX = overlap * Math.cos(angle);
       let separationY = overlap * Math.sin(angle);
 
@@ -102,6 +102,11 @@ export default class Paddle {
 
     this.prevPos.x = this.position.x;
     this.prevPos.y = this.position.y;
+  }
+
+  resize() {
+    this.width = Math.floor(this.game.width / 10);
+    this.height = Math.floor(this.game.width / 10);
   }
 
   update(dTime) {
