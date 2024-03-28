@@ -11,6 +11,7 @@ body{
     background-color: rgb(71, 71, 124);
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
 }
 
 canvas{
